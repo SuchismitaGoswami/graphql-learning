@@ -99,35 +99,35 @@
 
 
    2. **Mutation** (Update data)
-     - **Input Type**
-       - The structure of the input data for the mutation operation could be defined as a type seperately from the mutation operation defination
-       - The input type can have only the scalar values.
-     ```
-     input CreateUserInput{
-         name: String!
-         age: Int!
-     }
-     type Mutation{
-         createUser(data: CreateUserInput!): User!
-     }
-     ```
-     ==============
-     In the graphql query
-     ```
-      mutation{
-          createUser(
-              data: {
-                  name: "Test"
-                  age: 1 
-              }
-          )
-          
-      }
-     ``` 
+        - **Input Type**
+          - The structure of the input data for the mutation operation could be defined as a type seperately from the mutation operation defination
+          - The input type can have only the scalar values.
+        ```
+        input CreateUserInput{
+            name: String!
+            age: Int!
+        }
+        type Mutation{
+            createUser(data: CreateUserInput!): User!
+        }
+        ```
+        ==============
+        In the graphql query
+        ```
+         mutation{
+             createUser(
+                 data: {
+                     name: "Test"
+                     age: 1 
+                 }
+             )
+             
+         }
+        ``` 
 
-   - Context: A Mutable object that is provided to all resolvers. Pass the common data inside the context to graphql server. This will be available inside the ctx variable inside the resolver
-   - Mutation best practice: https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations 
-   - Resolver best practice: https://medium.com/paypal-tech/graphql-resolvers-best-practices-cd36fdbcef55
+      - Context: A Mutable object that is provided to all resolvers. Pass the common data inside the context to graphql server. This will be available inside the ctx variable inside the resolver
+      - Mutation best practice: https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations 
+      - Resolver best practice: https://medium.com/paypal-tech/graphql-resolvers-best-practices-cd36fdbcef55
 
    3. **Subscription** (watch data for changes)
       - Allows server to push data in real time down to all the subscribed clients. This avoids adding polling at the client side to get notification due to any changes to the data.
