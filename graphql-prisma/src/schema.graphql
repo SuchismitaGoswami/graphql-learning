@@ -1,0 +1,124 @@
+type Query {
+    posts(where: PostUniqueFilterInput): [Post!]!
+    me: User!
+    users(where: UserUniqueFilterInput): [User!]!
+    comments(where: CommentUniqueFilterInput): [Comment!]! 
+}
+
+
+type Mutation {
+    # User Mutation Types
+    createUser(data: CreateUserInput!): User!
+    updateUser(where: UserUniqueFilterInput!,  data: UpdateUserInput!): User!
+    deleteUser(where: UserUniqueFilterInput!): User!
+    
+    # Post Mutation Types
+    createPost(where: PostAuthorInput!, data: CreatePostInput!): Post!
+    deletePost(where: PostUniqueFilterInput!): Post!
+    updatePost(where: PostUniqueFilterInput!, data: UpdatePostInput!):Post!
+
+    # Comment Mutation Type
+    createComment(where:CommentPostAuthorInput! data: CreateCommentInput!): Comment!
+    updateComment(where: CommentUniqueFilterInput!, data: UpdateCommentInput!): Comment!
+}
+
+input PostAuthorInput{
+    author: Int!
+}
+
+input UserUniqueFilterInput{
+    id: Int
+    email: String
+}
+
+input CommentUniqueFilterInput{
+    id: Int!
+}
+
+type Subscription {
+    comment(postID: String!): CommentSubscriptionPayload!
+    post: PostSubscriptionPayload!
+}
+
+enum MutationEnum{
+    CREATED
+    UPDATED
+    DELETED   
+}
+
+type CommentSubscriptionPayload{
+    mutation: MutationEnum!
+    comment: Comment!
+}
+
+type PostSubscriptionPayload{
+    mutation: MutationEnum!
+    post: Post!
+}
+
+input CreateUserInput{
+    name: String!
+    email: String!
+    age: Int!
+}
+
+input UpdateUserInput{
+    name: String
+    age: Int
+}
+
+input CreatePostInput{
+    title: String!
+    body: String!
+    published: Boolean!
+}
+
+input UpdatePostInput{
+    body: String
+    published: Boolean
+}
+
+input CreateCommentInput{
+    text: String!
+}
+
+input UpdateCommentInput{
+    text: String
+}
+
+input CommentPostAuthorInput{
+    author: Int!
+    post: Int!
+}
+
+input PostUniqueFilterInput{
+    id: Int
+    title: String
+}
+
+type Comment {
+    id: ID!
+    text: String!
+    author: User!
+    post: Post!
+}
+
+type Post {
+    id: Int!
+    title: String!
+    body: String
+    published: Boolean 
+    author: User!
+    comments: [Comment]
+}
+type User {
+    id: Int!
+    name: String!
+    age: Int
+    email: String!
+    posts: [Post]
+    sex: String
+}
+
+
+
